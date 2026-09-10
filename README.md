@@ -1,44 +1,59 @@
- ![banner](https://github.com/ImCodist/quick-menu/assets/50346006/9caa6fb8-4bbd-4aef-bb28-ceb161deeba6)
-![Version](https://img.shields.io/github/v/release/ImCodist/quick-menu?style=flat-square) ![Downloads](https://img.shields.io/github/downloads/ImCodist/quick-menu/total?style=flat-square) [![wakatime](https://wakatime.com/badge/user/66a17a4d-fd33-4271-9faf-2a533d3d618e/project/127da8c1-1e08-48a6-9300-2a81b3b6a805.svg?style=flat-square)](https://wakatime.com/badge/user/66a17a4d-fd33-4271-9faf-2a533d3d618e/project/127da8c1-1e08-48a6-9300-2a81b3b6a805) ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/imcodist/quick-menu/build.yml?style=flat-square)
-![License](https://img.shields.io/github/license/ImCodist/quick-menu?style=flat-square)
+# quick-menu ReworkRP
 
-# quick-menu
-**Quick Menu** is a **client-side** mod for Minecraft that adds a **configurable easy-to-access menu** that runs **basic repetitive commands**.<br>
-It aims to save you time by giving you a place to put all the commands you may need for a given context.
+**Быстрое меню** — это **клиентский** мод для Minecraft, который добавляет **настраиваемое меню быстрого доступа**, запускающее **повторяющиеся команды**.
+Мод экономит время: все нужные команды для данного контекста (например, для RP-сервера) собраны в одном месте.
 
-The mod requires the [owo-lib](https://github.com/wisp-forest/owo-lib) modding library and [Fabric API](https://modrinth.com/mod/fabric-api).<br>
+Мод требует библиотеки [owo-lib](https://github.com/wisp-forest/owo-lib) и [Fabric API](https://modrinth.com/mod/fabric-api).
 
-## Download
-You can download the **latest version** in the [Releases](https://github.com/ImCodist/quick-menu/releases) of this repo.<br>
-The mod is also avaliable to download on [Modrinth](https://modrinth.com/mod/quick-menu).
+## Откуда взято
+Форк / реворк оригинала **[ImCodist/quick-menu](https://github.com/ImCodist/quick-menu)**, за основу взят тег **v1.2.3** под **Minecraft 1.20.4 / Fabric Loader 0.15.1**.
+Оригинальный код — © codist (ImCodist), лицензия **GPL v3**. Этот репозиторий — доработка под RP.
 
-## Features
-<p align="center">
-  <img src="https://github.com/ImCodist/quick-menu/assets/50346006/e6ce7cf2-43f5-442e-bf90-8d912eb0fa58" alt="In-Game Preview"/>
-</p>
+## Что сделано / переделано
+1. **Отдельная папка конфигов** — данные кнопок больше не лежат в `config/quickmenu_data.json`, а в `.minecraft/config/quick-menu-config/quickmenudata.json`. Папка создаётся автоматически.
+2. **Мульти-профили** — любой `*.json` в `quick-menu-config/` это отдельный конфиг, например `CPDData.json`, `MeriaData.json`. Файлы можно кидать вручную, они подхватываются сами.
+3. **Кнопка выбора конфига** — в шапке меню кнопка `📁 <профиль>`, новый экран выбора профиля: список, `Select` / удаление, поле создания нового, кнопка `Back`. Активный профиль запоминается в `active-profile.txt`.
+4. **Плейсхолдер `{player}`** — в команде можно писать `/pay {player} 450`: при нажатии подставится ник игрока, на которого смотришь (по прицелу). Без цели команда не отправляется, пишет `No player targeted!`.
+5. **Миграция** — старый `config/quickmenu_data.json` (и `quick-menu-config/quickmenu_data.json`) автоматически переезжает в новый `quickmenudata.json`. Пустой/битый json больше не роняет загрузку.
 
-- Easy to access menu with a **keybind** *(Default: G)*
-- A simple action button **editor**.
-- Each action button can run **as many actions** as you want.
-- The **icon** for an action button can be selected with a **dedicated GUI**.
+## Скачать
+Сборка под **1.20.4 Fabric** лежит в [Releases](../../releases) этого репозитория (`quick-menu-reworkrp-1.2.3-1.20.4.jar`).
+Оригинал также доступен на [Modrinth](https://modrinth.com/mod/quick-menu).
 
-## How to Use
-**Open the menu** in-game with the **chosen keybind** *(Default: G)*.<br>
-To enter **edit mode** click the pencil icon next to the title or press E on the keyboard.<br>
+Сборка из исходников (нужен JDK 17):
+```
+sh gradlew build
+```
+Готовый jar: `build/libs/quick-menu-1.2.3.jar`.
 
-In **edit mode** you can:
-- Create a new action using the button below the main menu.
-- Delete an action button by right-clicking the button you'd like to delete.
+## Особенности
+- Легкодоступное меню по **кейбинду** *(по умолчанию: G)*
+- Простой **редактор** кнопок действий
+- Каждая кнопка может выполнять **сколько угодно действий**
+- **Иконка** кнопки выбирается через отдельный GUI
+- Несколько **профилей-конфигов** с переключением в игре
+- Подстановка **ника по прицелу** через `{player}`
 
-## TODO
-- [x] Keybinds to activate each button.
-- [ ] Group system that can show or hide itself when not active. (Server specific groups)
-- [ ] More action types. (Keys, Menus, Timers)
-- [ ] More customization options. (Different themes, change button size)
-- [ ] Advanced action button options. (Should it close on pressed, run multiple times, toggle on and off)
-- [ ] General clean-up (the code is kinda a mess rn)
+## Как использовать
+**Открой меню** в игре назначенным кейбиндом *(по умолчанию: G)*.
+Чтобы войти в **режим редактирования**, нажми значок карандаша рядом с заголовком или клавишу **E**.
+
+В **режиме редактирования** можно:
+- Создать новое действие кнопкой под главным меню
+- Удалить кнопку: правый клик по ней
+- Сменить профиль: кнопка `📁` в шапке меню
+
+Пример для RP: команда кнопки `/pay {player} 450` — наведи прицел на игрока и нажми бинд кнопки, деньги уйдут ему.
+
+## TODO (из оригинала)
+- [x] Кейбинды для активации каждой кнопки
+- [ ] Группы, которые показываются/скрываются по контексту (серверные группы)
+- [ ] Больше типов действий (ключи, меню, таймеры)
+- [ ] Больше настроек внешнего вида (темы, размер кнопок)
+- [ ] Продвинутые опции кнопок (закрывать ли при нажатии, повтор, тоггл)
+- [ ] Общая чистка кода
 
 ---
 
 License: [GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)\
-Version Format: [Semetic Versioning](https://semver.org/)
+Version Format: [Semantic Versioning](https://semver.org/)
