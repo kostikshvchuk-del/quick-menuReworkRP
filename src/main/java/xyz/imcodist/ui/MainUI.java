@@ -83,6 +83,25 @@ public class MainUI extends BaseOwoScreen<FlowLayout> {
             headerLayout.child(headerEditButton);
         }
 
+        // Header profile button - opens config/profile selector.
+        {
+            String profileName = ActionButtonDataHandler.getCurrentProfileDisplayName();
+            if (profileName.length() > 12) {
+                profileName = profileName.substring(0, 12) + "…";
+            }
+            ButtonComponent headerProfileButton = Components.button(Text.literal("📁 " + profileName), (buttonComponent) -> {
+                if (client == null) return;
+                client.setScreen(new ProfileSelectorUI(editMode));
+            });
+            headerProfileButton
+                    .textShadow(true)
+                    .renderer(ButtonComponent.Renderer.flat(0x000000, 0x000000, 0x000000))
+                    .margins(Insets.of(0, 0, 5, 0))
+                    .tooltip(Text.translatable("menu.main.button.profile_tooltip"))
+                    .horizontalSizing(Sizing.content());
+            headerLayout.child(headerProfileButton);
+        }
+
         // Setup action layouts.
         FlowLayout actionFlowLayout = Containers.verticalFlow(Sizing.fill(100), Sizing.content());
 

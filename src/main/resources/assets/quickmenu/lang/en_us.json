@@ -7,6 +7,14 @@
   "menu.main.no_actions": "No actions created.",
   "menu.main.button.add_action": "Add Action",
   "menu.main.button.config": "Config",
+  "menu.main.button.profile_tooltip": "Select config profile",
+
+  "menu.profile.title": "Select Config",
+  "menu.profile.select": "Select",
+  "menu.profile.active": "Active",
+  "menu.profile.create": "Create",
+  "menu.profile.back": "Back",
+  "menu.profile.new_tooltip": "New profile name, e.g. CPDData / MeriaData",
 
   "menu.action_picker.select": " > ",
 
